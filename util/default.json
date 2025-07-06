@@ -29,7 +29,7 @@
 	"defaultPermissions": "275817811008",
 	"defaultSettings": {
 		"lang": "en",
-		"wiki": "https://utg.miraheze.org/",
+		"wiki": "https://utg.miraheze.org/wiki",
 		"subprefixes": [
 			["!", "utg.miraheze.org"],
 			["?", "utg.miraheze.org"]
