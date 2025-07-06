@@ -29,10 +29,10 @@
 	"defaultPermissions": "275817811008",
 	"defaultSettings": {
 		"lang": "en",
-		"wiki": "https://en.wikipedia.org/w/",
+		"wiki": "https://utg.miraheze.org/wiki/",
 		"subprefixes": [
-			["!", "wikipedia.org"],
-			["?", "fandom.com"]
+			["!", "utg.miraheze.org"],
+			["?", "utg.miraheze.org"]
 		],
 		"embedLimits": {
 			"descLength": 1000,
