@@ -53,7 +53,7 @@ export default async function mw_search(lang, msg, searchterm, wiki, query, reac
     }
 
     // Get the query page info
-    const querypage = (Object.values((query.pages || {}))?.[0] || { title: '', ns: 0, invalid: '' };
+    const querypage = Object.values(query.pages || {})[0] || { title: '', ns: 0, invalid: '' };
     const limit = searchLimit[(patreonGuildsPrefix.has(msg.guildId) ? 'patreon' : 'default')];
 
     try {
