@@ -31,8 +31,8 @@
 		"lang": "en",
 		"wiki": "https://utg.miraheze.org/wiki/",
 		"subprefixes": [
-			["!", "utg.miraheze.org"],
-			["?", "utg.miraheze.org"]
+			["!", "miraheze.org"],
+			["?", "miraheze.org"]
 		],
 		"embedLimits": {
 			"descLength": 1000,
