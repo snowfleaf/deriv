@@ -1,4 +1,10 @@
 import { EmbedBuilder } from 'discord.js';
+import {
+	ActionRowBuilder,
+	ButtonBuilder,
+	ButtonStyle
+} from 'discord.js';
+
 import { botLimits } from '../../util/defaults.js';
 import { got, escapeFormatting, splitMessage } from '../../util/functions.js';
 
@@ -16,7 +22,7 @@ const {search: searchLimit} = botLimits;
  * @param {Boolean} noEmbed - If the response should be without an embed.
  * @returns {Promise<{reaction?: WB_EMOJI, message?: String|import('discord.js').MessageOptions}>}
  */
-export default function mw_search(lang, msg, searchterm, wiki, query, reaction, spoiler, noEmbed) {
+export default function mw_search(lang, msg, searchterm, wiki, query, reaction, spoiler) {
 	if ( searchterm.length > 250 ) {
 		searchterm = searchterm.substring(0, 250).trim();
 		msg?.fetchReply?.().then( message => message?.reactEmoji?.(WB_EMOJI.warning), log_error );
@@ -24,9 +30,9 @@ export default function mw_search(lang, msg, searchterm, wiki, query, reaction, 
 	}
 	var pagelink = wiki.toLink('Special:Search', {search:searchterm,fulltext:1});
 	var resultText = '<' + pagelink + '>';
-	var embed = null;
-	if ( !noEmbed ) embed = new EmbedBuilder().setAuthor( {name: query.general.sitename} ).setTitle( '`' + searchterm + '`' ).setURL( pagelink );
-	else resultText += '\n\n**`' + searchterm + '`**';
+	// var embed = null;
+	// if ( !noEmbed ) embed = new EmbedBuilder().setAuthor( {name: query.general.sitename} ).setTitle( '`' + searchterm + '`' ).setURL( pagelink );
+	// else resultText += '\n\n**`' + searchterm + '`**';
 	var querypage = ( Object.values(( query.pages || {} ))?.[0] || {title:'',ns:0,invalid:''} );
 	var limit = searchLimit[( patreonGuildsPrefix.has(msg.guildId) ? 'patreon' : 'default' )];
 	return got.get( wiki + 'api.php?action=query&titles=Special:Search&list=search&srinfo=totalhits&srprop=redirecttitle|sectiontitle&srnamespace=4|12|14|' + ( querypage.ns >= 0 ? querypage.ns + '|' : '' ) + wiki.namespaces.content.map( ns => ns.id ).join('|') + '&srlimit=' + limit + '&srsearch=' + encodeURIComponent( searchterm ) + '&format=json', {
@@ -132,10 +138,39 @@ export default function mw_search(lang, msg, searchterm, wiki, query, reaction, 
 		}
 	}, error => {
 		console.log( '- Error while getting the search results.' + error );
-	} ).then( () => {
-		return {message: {
-			content: '🔍 ' + spoiler + resultText + spoiler,
-			embeds: [embed]
-		}};
-	} );
+	} ).then(() => {
+	if (!noEmbed) {
+		const components = [];
+
+		for (const result of body.query.search.slice(0, 5)) {
+			const title = result.title;
+			const pageUrl = wiki.toLink(title, '', '', true);
+			const displayTitle = escapeFormatting(title);
+			const snippet = result.snippet?.replace(/<\/?[^>]+(>|$)/g, '') || lang.get('search.noexcerpt');
+
+			const button = new ButtonBuilder()
+				.setLabel(displayTitle)
+				.setStyle(ButtonStyle.Link)
+				.setURL(pageUrl);
+
+			const row = new ActionRowBuilder().addComponents(button);
+			components.push(row);
+		}
+
+		return {
+			message: {
+				content: `🔍 ${spoiler}**Search results for:** \`${searchterm}\`\n<${pagelink}>${spoiler}`,
+				components,
+				flags: 0
+			}
+		};
+	} else {
+		return {
+			message: {
+				content: '🔍 ' + spoiler + resultText + spoiler
+			}
+		};
+	}
+});
+
 }
