@@ -14,14 +14,14 @@ globalThis.isDebug = ( process.argv[2] === 'debug' );
  * @global
  */
 globalThis.WB_EMOJI = {
-	/** @type {'<:error:440871715938238494>'} */
-	error: '<:error:440871715938238494>',
-	/** @type {'<a:loading:641343250661113886>'} */
-	loading: '<a:loading:641343250661113886>',
-	/** @type {'<:unknown_wiki:505884572001763348>'} */
-	nowiki: '<:unknown_wiki:505884572001763348>',
-	/** @type {'<:wikibot:1042228093940682842>'} */
-	wikibot: '<:wikibot:1042228093940682842>',
+	/** @type {'<:error:1391714309087694849>'} */
+	error: '<:error:1391714309087694849>',
+	/** @type {'<:loading:1391714277580210207>'} */
+	loading: '<:loading:1391714277580210207>',
+	/** @type {'<:nowiki:1391714294663483462>'} */
+	nowiki: '<:nowiki:1391714294663483462>',
+	/** @type {'<:wikibot:1391714327039442975>'} */
+	wikibot: '<:wikibot:1391714327039442975>',
 	/** @type {'🔂'} */ again: '🔂',
 	/** @type {'🗑️'} */ delete: '🗑️',
 	/** @type {'✅'} */ done: '✅',
