@@ -30,7 +30,7 @@ globalThis.WB_EMOJI = {
 	/** @type {'❌'} */ no: '❌',
 	/** @type {'❓'} */ question: '❓',
 	/** @type {'🤷'} */ shrug: '🤷',
-	/** @type {'⏳'} */ waiting: '⏳',
+	/** @type {'⏳'} */ waiting: '<:waiting:1391715225413091348>',
 	/** @type {'⚠️'} */ warning: '⚠️'
 };
 
