@@ -127,7 +127,7 @@ export default function mw_search(lang, msg, searchterm, wiki, query, reaction, 
 	}).then(() => {
 		// Create Components V2 Message
 		const components = [
-			new TextDisplayBuilder().setContent(`🔍 ${spoiler}${resultText}${spoiler}`),
+			new TextDisplayBuilder().setContent(`🔍 ${spoiler}[View on the wiki](${resultText})${spoiler}`),
 			new ContainerBuilder().addTextDisplayComponents(
 				...(description.length
 					? splitMessage(description.join('\n')).map(desc =>
@@ -139,7 +139,7 @@ export default function mw_search(lang, msg, searchterm, wiki, query, reaction, 
 		];
 
 		if (footer) {
-			components.push(new TextDisplayBuilder().setContent(footer));
+			components.push(new TextDisplayBuilder().setContent('-# ' + footer));
 		}
 
 		return {
